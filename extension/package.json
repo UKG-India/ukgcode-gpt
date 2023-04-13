@@ -1,0 +1,236 @@
+{
+  "name": "codegpt",
+  "displayName": "UKG Code GPT",
+  "description": "Use the Official OpenAI API inside VSCode",
+  "version": "2.1.5",
+  "engines": {
+    "vscode": "^1.72.0"
+  },
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "codegpt-sidebar-view",
+          "title": "UKGGPT Chat",
+          "icon": "media/code_gpt_bar.svg"
+        }
+      ]
+    },
+    "views": {
+      "codegpt-sidebar-view": [
+        {
+          "type": "webview",
+          "id": "codegpt-sidebar",
+          "name": "UKGGPT Chat",
+          "icon": "media/code_gpt_bar.svg",
+          "contextualTitle": "UKGGPT Chat"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "UKGCodeGPT",
+      "properties": {
+        "CodeGPT.apiKey": {
+          "type": "string",
+          "default": "OpenAI",
+          "markdownDescription": "To enter your [API Key](https://openai.com/account/api-keys) press cmd+shift+p and search for 'UKGCodeGPT: Set API KEY'. Select your AI provider:",
+          "enum": [
+            "OpenAI"
+          ]
+        },
+        "CodeGPT.model": {
+          "type": "string",
+          "default": "gpt-3.5-turbo",
+          "markdownDescription": "The model to use",
+          "enum": [
+            "gpt-4",
+            "gpt-4-32k",
+            "gpt-3.5-turbo",
+            "text-davinci-003"
+          ],
+          "enumDescriptions": [
+            "gpt-4: Multimodal - OpenAI (Recommended)",
+            "gpt-4-32k: Multimodal - OpenAI",
+            "gpt-3.5-turbo: ChatGPT - OpenAI",
+            "text-davinci-003: GPT-3 - OpenAI"
+          ]
+        },
+        "CodeGPT.maxTokens": {
+          "type": "number",
+          "default": 800,
+          "minimum": 1,
+          "markdownDescription": "The maximum number of tokens for each request"
+        },
+        "CodeGPT.temperature": {
+          "type": "number",
+          "default": 0.3,
+          "minimum": 0,
+          "maximum": 1,
+          "markdownDescription": "The temperature. Must be between 0 and 1"
+        },
+        "CodeGPT.query.language": {
+          "type": "string",
+          "default": "English",
+          "markdownDescription": "Select the query language",
+          "enum": [
+            "English"
+          ]
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "ukgcodegpt.askCodeGPT",
+        "title": "Ask UKGCodeGPT"
+      },
+      {
+        "command": "ukgcodegpt.askStackOverflow",
+        "title": "Ask StackOverflow UKGCodeGPT"
+      },
+      {
+        "command": "ukgcodegpt.searchApisCodeGPT",
+        "title": "Search APIs UKGCodeGPT"
+      },
+      {
+        "command": "ukgcodegpt.compileAndRunCodeGPT",
+        "title": "Compile & Run UKGCodeGPT"
+      },
+      {
+        "command": "ukgcodegpt.explainCodeGPT",
+        "title": "Explain UKGCodeGPT"
+      },
+      {
+        "command": "ukgcodegpt.refactorCodeGPT",
+        "title": "Refactor UKGCodeGPT"
+      },
+      {
+        "command": "ukgcodegpt.documentCodeGPT",
+        "title": "Document UKGCodeGPT"
+      },
+      {
+        "command": "ukgcodegpt.findProblemsCodeGPT",
+        "title": "Find Problems UKGCodeGPT"
+      },
+      {
+        "command": "ukgcodegpt.unitTestCodeGPT",
+        "title": "Unit Test UKGCodeGPT"
+      },
+      {
+        "command": "ukgcodegpt.getCode",
+        "title": "Get Code from comments"
+      },
+      {
+        "command": "ukgcodegpt.setApiKeyCodeGPT",
+        "title": "UKGCodeGPT: Set API KEY"
+      },
+      {
+        "command": "ukgcodegpt.removeApiKeyCodeGPT",
+        "title": "UKGCodeGPT: Remove API KEY"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "ukgcodegpt.getCode",
+        "key": "ctrl+shift+i",
+        "mac": "cmd+shift+i"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "ukgcodegpt.askCodeGPT",
+          "when": "editorTextFocus",
+          "group": "codegpt-menu-group@1"
+        },
+        {
+          "command": "ukgcodegpt.compileAndRunCodeGPT",
+          "when": "editorHasSelection",
+          "group": "codegpt-menu-group@2"
+        },
+        {
+          "command": "ukgcodegpt.explainCodeGPT",
+          "when": "editorHasSelection",
+          "group": "codegpt-menu-group@3"
+        },
+        {
+          "command": "ukgcodegpt.refactorCodeGPT",
+          "when": "editorHasSelection",
+          "group": "codegpt-menu-group@4"
+        },
+        {
+          "command": "ukgcodegpt.documentCodeGPT",
+          "when": "editorHasSelection",
+          "group": "codegpt-menu-group@5"
+        },
+        {
+          "command": "ukgcodegpt.findProblemsCodeGPT",
+          "when": "editorHasSelection",
+          "group": "codegpt-menu-group@6"
+        },
+        {
+          "command": "ukgcodegpt.unitTestCodeGPT",
+          "when": "editorHasSelection",
+          "group": "codegpt-menu-group@7"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "ukgcodegpt.askCodeGPT"
+        },
+        {
+          "command": "ukgcodegpt.compileAndRunCodeGPT",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "ukgcodegpt.explainCodeGPT",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "ukgcodegpt.refactorCodeGPT",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "ukgcodegpt.documentCodeGPT",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "ukgcodegpt.findProblemsCodeGPT",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "ukgcodegpt.unitTestCodeGPT",
+          "when": "editorHasSelection"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "lint": "eslint . --fix",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.72.0",
+    "@vscode/test-electron": "^2.2.0",
+    "eslint": "^8.35.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "glob": "^8.0.3",
+    "mocha": "^10.1.0",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "axios": "^0.26.1",
+    "cheerio": "^1.0.0-rc.12",
+    "openai": "^3.2.1"
+  }
+}
